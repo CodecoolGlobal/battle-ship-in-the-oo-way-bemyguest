@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "battle-ship-in-the-oo-way-bemyguest/1.0.0": {
+        "runtime": {
+          "battle-ship-in-the-oo-way-bemyguest.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "battle-ship-in-the-oo-way-bemyguest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/bin/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/bin/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.deps.json
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/bin/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.runtimeconfig.json
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/bin/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.runtimeconfig.dev.json
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/bin/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.dll
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/bin/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.pdb
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/obj/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.csprojAssemblyReference.cache
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/obj/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.AssemblyInfoInputs.cache
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/obj/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.AssemblyInfo.cs
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/obj/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.dll
+/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/obj/Debug/netcoreapp3.1/battle-ship-in-the-oo-way-bemyguest.pdb
