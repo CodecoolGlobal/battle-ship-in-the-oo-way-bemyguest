@@ -7,7 +7,6 @@ namespace battle_ship_in_the_oo_way_bemyguest
         static void Main(string[] args)
         {
             Ocean ocean = new Ocean();
-            System.Console.WriteLine(ocean);
         }
     }
 }
