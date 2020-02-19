@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Battleships
 {
@@ -37,7 +38,6 @@ namespace Battleships
         }
         public void PlaceShips()
         {
-
             foreach(var ship in Ships)
             {
                 if(!IsCoordinateTaken(ship))
@@ -49,28 +49,35 @@ namespace Battleships
                 }
             }
         }
-        public void Shoot(Coordinates coordinate) 
+        public void Shoot(Coordinates coordinate, Player Player1, Player Player2) 
         {
             // if (coordinate.Row < 1 || coordinate.Row > 10)
             //     throw new ArgumentException("x coordinate should be in range 0..9");
             // if (coordinate.Column < 1 || coordinate.Column > 10)
             //     throw new ArgumentException("y coordinate should be in range 0..9");
 
-            foreach (Ship ship in Ships) 
+            foreach (Ship ship in Player2.Ships) 
             {
                 foreach(var shipCoord in ship.ShipCoordinates)
-                {
-                    if (coordinate == shipCoord) 
+                {   
+                    if (coordinate.Column == shipCoord.Column 
+                        && coordinate.Row == shipCoord.Row) 
                     {
-                        FiringBoard.Board[coordinate.Row][coordinate.Column].Symbol = "X";
+                        Player1.FiringBoard.Board[coordinate.Row][coordinate.Column].Symbol = "X";
+                        Player2.OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = "X";
+                        Console.WriteLine("\nHit!\n");
                         ship.Size --;
-                    }
-                    else
-                    {
-                        FiringBoard.Board[coordinate.Row][coordinate.Column].Symbol = "O";
+                        if (ship.IsSunk)
+                        {
+                            Console.WriteLine("\nHit & Sunk!\n");
+                        }
+                        return;
                     }
                 }
             }
+            Player1.FiringBoard.Board[coordinate.Row][coordinate.Column].Symbol = "O";
+            Player2.OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = "O";
+            Console.WriteLine("\nMiss!\n");
         }
         public void PrintBoards()
         {
@@ -94,6 +101,14 @@ namespace Battleships
                 number++;
             }
             Console.WriteLine();
+        }
+        public bool CheckIfAllSunk(Player Player)
+        {
+            if(Ships.All(ship => ship.IsSunk))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

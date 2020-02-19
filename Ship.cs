@@ -4,7 +4,6 @@ namespace Battleships
 {
     public class Ship
     {
-        public string Name { get; set; }
         public Coordinates InitialCoordinates { get; set; }
         public List<Coordinates> ShipCoordinates { get; set; }
         public int Size { get; set; }
