@@ -1,0 +1,11 @@
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.csprojAssemblyReference.cache
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.AssemblyInfoInputs.cache
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.AssemblyInfo.cs
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships.deps.json
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships.runtimeconfig.json
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships.runtimeconfig.dev.json
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships.dll
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships.pdb
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.dll
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.pdb

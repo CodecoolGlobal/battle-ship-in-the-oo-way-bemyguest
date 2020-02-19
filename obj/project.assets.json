@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/battle-ship-in-the-oo-way-bemyguest.csproj",
-      "projectName": "battle-ship-in-the-oo-way-bemyguest",
-      "projectPath": "/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/battle-ship-in-the-oo-way-bemyguest.csproj",
+      "projectUniqueName": "/home/starczi/Desktop/starczi/Codecool/C#/Battleships/Battleships.csproj",
+      "projectName": "Battleships",
+      "projectPath": "/home/starczi/Desktop/starczi/Codecool/C#/Battleships/Battleships.csproj",
       "packagesPath": "/home/starczi/.nuget/packages/",
-      "outputPath": "/home/starczi/Desktop/starczi/Codecool/C#/battle-ship-in-the-oo-way-bemyguest/obj/",
+      "outputPath": "/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/starczi/.nuget/NuGet/NuGet.Config"
