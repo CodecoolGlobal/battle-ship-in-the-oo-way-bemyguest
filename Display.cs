@@ -1,12 +1,14 @@
 using Console = Colorful.Console;
 using System.Drawing;
 using System;
+using System.Collections.Generic;
 namespace Battleships
 {
     public class Display
     {
         public Player Player { get; set; }
-        public void PrintBoards(Player Player)
+        public Ship Ship { get; set; }
+        public static void PrintBoards(Player Player)
         {
             int number = 0;
             Console.WriteLine($"{Player.Name}'s turn\n", Color.Indigo);
@@ -29,22 +31,48 @@ namespace Battleships
             }
             Console.WriteLine();
         }
-        public void WelcomeScreen()
+        public static void WelcomeScreen()
         {
             Console.WriteLine("Welcome screen!");
         }
-        public string GetPlayersName()
+        public static string GetPlayersName()
         {
             Console.WriteLine("Enter players name: ");
             return Console.ReadLine();
         }
-        public Coordinates GetShootingCoordinates()
+        public static Coordinates GetShootingCoordinates()
         {
                 Console.WriteLine("Enter x coordinate: ");
                 var x = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Enter y coordinate: ");
                 var y = Convert.ToInt32(Console.ReadLine());
                 return new Coordinates(y,x);
+        }
+        public static Coordinates GetShipCoordinates()
+        {
+            Console.WriteLine("Enter initial x coordinate: ");
+            var x = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter initial y coordinate: ");
+            var y = Convert.ToInt32(Console.ReadLine());
+            return new Coordinates(y,x);
+        }
+        public static bool GetDirection()
+        {
+            Console.WriteLine("Enter ship's desired direction (H for horizontal, V for vertical): ");
+            var direction = Console.ReadLine();
+            if (direction.ToUpper() == "V")
+            {
+                return true;
+            }
+            return false;
+        }
+        public static void PlaceAllShips(Player Player)
+        {
+            foreach(KeyValuePair<string, int> property in Ship.ShipProperties)
+            {
+                Player.PlaceShip(property.Value, property.Key);
+                PrintBoards(Player);
+            }
         }
     }
 }

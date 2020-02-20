@@ -9,6 +9,10 @@ namespace Battleships
         public int Size { get; set; }
         public bool IsHorizontal { get; set; }
         public string Tag { get; set; }
+        public static Dictionary<string, int> ShipProperties = new Dictionary<string, int>() 
+        {
+            {"D", 2}, {"R", 3}, {"S", 3}, {"B", 4}, {"C", 5}
+        };
         public bool IsSunk
         {
             get{return Size<1;}

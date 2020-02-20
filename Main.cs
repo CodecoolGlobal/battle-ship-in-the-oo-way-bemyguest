@@ -5,12 +5,12 @@ namespace Battleships
     {
         static void Main(string[] args)
         {
-            var Display = new Display();
             Display.WelcomeScreen();
             var Player1 = new Player(Display.GetPlayersName());
+            Display.PlaceAllShips(Player1);
             var Player2 = new Player(Display.GetPlayersName());
-            Player1.PlaceShips();
-            Player2.PlaceShips();
+            Display.PlaceAllShips(Player2);
+            
             var gameIsOn = true;
 
             while(gameIsOn)

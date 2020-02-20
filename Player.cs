@@ -22,15 +22,8 @@ namespace Battleships
         public Player(string name)
         {
             Random rand = new Random();
-
-            var Battleship = new Ship(new Coordinates(3, 1), true, 4, "B");
-            var Cruiser = new Ship(new Coordinates(rand.Next(1, 8), rand.Next(3,5)), true, 3, "R");
-            var Submarine = new Ship(new Coordinates(rand.Next(1, 6), rand.Next(5,7)), true, 5, "S");
-            var Carrier = new Ship(new Coordinates(rand.Next(6,10), 7), false, 3, "C");
-            var Destroyer = new Ship(new Coordinates(2, 8), false, 2, "D");
-
             Name = name;
-            Ships = new List<Ship>() {Battleship, Carrier, Cruiser, Destroyer, Submarine};
+            Ships = new List<Ship>();
             OwnBoard = new Ocean();
             FiringBoard = new Ocean();
         }
@@ -44,9 +37,9 @@ namespace Battleships
                 }
             }
             return false;
-        }
+        } 
         public void PlaceShips()
-        {
+        {   
             foreach(var ship in Ships)
             {
                 if(!IsCoordinateTaken(ship))
@@ -58,10 +51,38 @@ namespace Battleships
                 }
             }
         }
+        public void PlaceShip(int size, string tag)
+        {
+            var loop = true;
+            while(loop)
+            {
+                Console.WriteLine($"You're now placing ship {tag}, which is {size} long");
+                var direction = Display.GetDirection();
+                var coords = Display.GetShipCoordinates();
+                var ship = new Ship(coords, direction, size, tag);
+                if (ship.IsHorizontal && (ship.Size + coords.Row) > 10)
+                {
+                    continue;
+                }
+                else if ((!ship.IsHorizontal) && (ship.Size + coords.Column) > 10)
+                {
+                    continue;
+                }
+                else
+                {
+                    Ships.Add(ship);
+                    foreach(var coordinate in ship.ShipCoordinates)
+                    {
+                        OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = tag;
+                    }
+                    loop = false;
+                }
+            }
+        }
         public void Shoot(Coordinates coordinate, Player Player1, Player Player2) 
         {
             var firstPlayerFiringSquare = Player1.FiringBoard.Board[coordinate.Row][coordinate.Column];
-            var secondPlayerOwnSquare = Player2.OwnBoard.Board[coordinate.Row][coordinate.Column]; // Czy jest sens?
+            var secondPlayerOwnSquare = Player2.OwnBoard.Board[coordinate.Row][coordinate.Column];
             // Czy wrzucać tu jakiś warunek, że if is hit, to jeszcze raz? Da się to rozbić na mniejsze?
             foreach (Ship ship in Player2.Ships) 
             {
@@ -71,7 +92,7 @@ namespace Battleships
                      && coordinate.Row == shipCoord.Row) 
                     {
                         firstPlayerFiringSquare.Symbol = "X";
-                        firstPlayerFiringSquare.IsHit = true; //DUŻO RZECZY
+                        firstPlayerFiringSquare.IsHit = true;
                         secondPlayerOwnSquare.Symbol = "X";
                         ship.Size --;
                         
@@ -92,9 +113,8 @@ namespace Battleships
             secondPlayerOwnSquare.Symbol = "O";
             Console.WriteLine("\nMiss!\n", Color.Aqua);
         }
-        public void PlayTurn(Player Player1, Player Player2) //Czy jest sens i czy tutaj?
+        public void PlayTurn(Player Player1, Player Player2)
         {
-            var Display = new Display();
             Display.PrintBoards(Player1);
             Player1.Shoot(Display.GetShootingCoordinates(), Player1, Player2);
             Console.ReadLine();
