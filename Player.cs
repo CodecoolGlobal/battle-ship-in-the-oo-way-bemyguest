@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
+using Console = Colorful.Console;
 
 namespace Battleships
 {
@@ -10,6 +12,13 @@ namespace Battleships
         public Ocean OwnBoard { get; set; }
         public Ocean FiringBoard { get; set; }
         public List<Ship> Ships { get; set; }
+        public bool HasLost
+        {
+            get
+            {
+                return Ships.All(ship => ship.IsSunk);
+            }
+        }
         public Player(string name)
         {
             Random rand = new Random();
@@ -51,64 +60,45 @@ namespace Battleships
         }
         public void Shoot(Coordinates coordinate, Player Player1, Player Player2) 
         {
-            // if (coordinate.Row < 1 || coordinate.Row > 10)
-            //     throw new ArgumentException("x coordinate should be in range 0..9");
-            // if (coordinate.Column < 1 || coordinate.Column > 10)
-            //     throw new ArgumentException("y coordinate should be in range 0..9");
-
+            var firstPlayerFiringSquare = Player1.FiringBoard.Board[coordinate.Row][coordinate.Column];
+            var secondPlayerOwnSquare = Player2.OwnBoard.Board[coordinate.Row][coordinate.Column]; // Czy jest sens?
+            // Czy wrzucać tu jakiś warunek, że if is hit, to jeszcze raz? Da się to rozbić na mniejsze?
             foreach (Ship ship in Player2.Ships) 
             {
                 foreach(var shipCoord in ship.ShipCoordinates)
                 {   
                     if (coordinate.Column == shipCoord.Column 
-                        && coordinate.Row == shipCoord.Row) 
+                     && coordinate.Row == shipCoord.Row) 
                     {
-                        Player1.FiringBoard.Board[coordinate.Row][coordinate.Column].Symbol = "X";
-                        Player2.OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = "X";
-                        Console.WriteLine("\nHit!\n");
+                        firstPlayerFiringSquare.Symbol = "X";
+                        firstPlayerFiringSquare.IsHit = true; //DUŻO RZECZY
+                        secondPlayerOwnSquare.Symbol = "X";
                         ship.Size --;
+                        
                         if (ship.IsSunk)
                         {
-                            Console.WriteLine("\nHit & Sunk!\n");
+                            Console.WriteLine("\nHit & Sunk!\n", Color.Gold);
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nHit!\n", Color.Red);
                         }
                         return;
                     }
                 }
             }
-            Player1.FiringBoard.Board[coordinate.Row][coordinate.Column].Symbol = "O";
-            Player2.OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = "O";
-            Console.WriteLine("\nMiss!\n");
+            firstPlayerFiringSquare.Symbol = "O";
+            firstPlayerFiringSquare.IsHit = true;
+            secondPlayerOwnSquare.Symbol = "O";
+            Console.WriteLine("\nMiss!\n", Color.Aqua);
         }
-        public void PrintBoards()
+        public void PlayTurn(Player Player1, Player Player2) //Czy jest sens i czy tutaj?
         {
-            int number = 0;
-            Console.WriteLine(Name);
-            Console.WriteLine("Own Board:                            Firing Board:");
-            Console.WriteLine("  0 1 2 3 4 5 6 7 8 9                   0 1 2 3 4 5 6 7 8 9");
-            for(int row = 0; row < 10; row++)
-            {
-                Console.Write(number + " ");
-                for(int ownColumn = 0; ownColumn < 10; ownColumn++)
-                {
-                    Console.Write(OwnBoard.Board[row][ownColumn].Symbol + " ");
-                }
-                Console.Write("                " + number + " ");
-                for (int firingColumn = 0; firingColumn < 10; firingColumn++)
-                {
-                    Console.Write(FiringBoard.Board[row][firingColumn].Symbol + " ");
-                }
-                Console.WriteLine();
-                number++;
-            }
-            Console.WriteLine();
-        }
-        public bool CheckIfAllSunk(Player Player)
-        {
-            if(Ships.All(ship => ship.IsSunk))
-            {
-                return true;
-            }
-            return false;
+            var Display = new Display();
+            Display.PrintBoards(Player1);
+            Player1.Shoot(Display.GetShootingCoordinates(), Player1, Player2);
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }

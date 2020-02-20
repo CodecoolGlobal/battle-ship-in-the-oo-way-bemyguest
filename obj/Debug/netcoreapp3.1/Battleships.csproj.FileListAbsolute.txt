@@ -9,3 +9,5 @@
 /home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Battleships.pdb
 /home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.dll
 /home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.pdb
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/bin/Debug/netcoreapp3.1/Colorful.Console.dll
+/home/starczi/Desktop/starczi/Codecool/C#/Battleships/obj/Debug/netcoreapp3.1/Battleships.csproj.CopyComplete

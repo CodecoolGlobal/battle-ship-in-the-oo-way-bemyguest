@@ -38,10 +38,6 @@ namespace Battleships
                     currentShipPart++;
                     x++;
                 }
-                if (x>10)
-                {
-                    throw new ArgumentException("Ship was not placed correctly"); // do innej
-                }
             }
             else
             {
@@ -50,10 +46,6 @@ namespace Battleships
                     resultCoordinates.Add(new Coordinates(x, y));
                     currentShipPart++;
                     y++;
-                }
-                if (y>10)
-                {
-                    throw new ArgumentException("Ship was not placed correctly");
                 }
             }
             return resultCoordinates;

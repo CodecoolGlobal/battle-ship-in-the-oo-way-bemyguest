@@ -5,27 +5,28 @@ namespace Battleships
     {
         static void Main(string[] args)
         {
-            var Player1 = new Player("Kuba");
-            var Player2 = new Player("Michał");
+            var Display = new Display();
+            Display.WelcomeScreen();
+            var Player1 = new Player(Display.GetPlayersName());
+            var Player2 = new Player(Display.GetPlayersName());
             Player1.PlaceShips();
             Player2.PlaceShips();
-            while(true)
-            {
-                Player1.PrintBoards();
-                Console.WriteLine("Enter x coordinate: ");
-                var x = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter y coordinate: ");
-                var y = Convert.ToInt32(Console.ReadLine());
-                Player1.Shoot(new Coordinates(y,x), Player1, Player2);
-                Console.ReadLine();
+            var gameIsOn = true;
 
-                Player2.PrintBoards();
-                Console.WriteLine("Enter x coordinate: ");
-                var i = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter y coordinate: ");
-                var j = Convert.ToInt32(Console.ReadLine());
-                Player2.Shoot(new Coordinates(j,i), Player2, Player1);
-                Console.ReadLine();
+            while(gameIsOn)
+            {
+                Player1.PlayTurn(Player1, Player2);
+                if(Player2.HasLost)
+                {
+                    Console.WriteLine("Player1 Won!");
+                    break;
+                }
+                Player2.PlayTurn(Player2,Player1);
+                if(Player1.HasLost)
+                {
+                    Console.WriteLine("Player2 Won!");
+                    gameIsOn=false;
+                }
             }
         }
     }
