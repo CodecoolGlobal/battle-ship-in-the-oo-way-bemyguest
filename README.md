@@ -15,8 +15,7 @@ __ocean__
 
 TO DO:
 1. Validator:
-    • Can’t shoot at the same place / cant place at the same place
-    • shooting accepts (0,9) / placing ships accepts 0,9
+    • Can’t shoot at the same place
     • cannot place ships next to other ship
 
 

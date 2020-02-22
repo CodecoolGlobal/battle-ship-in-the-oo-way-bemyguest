@@ -42,19 +42,51 @@ namespace Battleships
         }
         public static Coordinates GetShootingCoordinates()
         {
+            try
+            {
                 Console.WriteLine("Enter x coordinate: ");
                 var x = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter y coordinate: ");
+                Console.WriteLine("Enter  y coordinate: ");
                 var y = Convert.ToInt32(Console.ReadLine());
-                return new Coordinates(y,x);
+                if ((x>=0 && x<10) && (y>=0 && y<10))
+                {
+                    return new Coordinates(y,x);
+                }
+                else
+                {
+                    Console.WriteLine($"Cannot shoot at [{x},{y}], try again.");
+                    return GetShipCoordinates();
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Incorrect input, try again.");
+                return GetShootingCoordinates();
+            }
         }
         public static Coordinates GetShipCoordinates()
         {
-            Console.WriteLine("Enter initial x coordinate: ");
-            var x = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter initial y coordinate: ");
-            var y = Convert.ToInt32(Console.ReadLine());
-            return new Coordinates(y,x);
+            try
+            {
+                Console.WriteLine("Enter initial x coordinate: ");
+                var x = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter initial y coordinate: ");
+                var y = Convert.ToInt32(Console.ReadLine());
+                if ((x>=0 && x<10) && (y>=0 && y<10))
+                {
+                    return new Coordinates(y,x);
+                }
+                else
+                {
+                    Console.WriteLine($"Cannot place ship at [{x},{y}], try again.");
+                    return GetShipCoordinates();
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Incorrect input, try again.");
+                return GetShipCoordinates();
+            }
         }
         public static bool GetDirection()
         {
@@ -64,7 +96,15 @@ namespace Battleships
             {
                 return true;
             }
-            return false;
+            else if (direction.ToUpper() == "H")
+            {
+                return false;
+            }
+            else 
+            {
+                Console.WriteLine("You can only enter H or V !");
+                return GetDirection();
+            }
         }
         public static void PlaceAllShips(Player Player)
         {

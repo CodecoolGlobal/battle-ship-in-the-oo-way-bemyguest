@@ -37,19 +37,6 @@ namespace Battleships
                 }
             }
             return false;
-        } 
-        public void PlaceShips()
-        {   
-            foreach(var ship in Ships)
-            {
-                if(!IsCoordinateTaken(ship))
-                {
-                    foreach(var coordinate in ship.ShipCoordinates) 
-                    {
-                        OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = ship.Tag;
-                    }
-                }
-            }
         }
         public void PlaceShip(int size, string tag)
         {
@@ -62,11 +49,18 @@ namespace Battleships
                 var ship = new Ship(coords, direction, size, tag);
                 if (ship.IsHorizontal && (ship.Size + coords.Row) > 10)
                 {
+                    Console.WriteLine("Cannot place your ship there, try again!");
                     continue;
                 }
                 else if ((!ship.IsHorizontal) && (ship.Size + coords.Column) > 10)
                 {
+                    Console.WriteLine("Cannot place your ship there, try again!");
                     continue;
+                }
+                else if (IsCoordinateTaken(ship))
+                {
+                    Console.WriteLine("Cannot place your ship there, try again!");
+                    continue;   
                 }
                 else
                 {

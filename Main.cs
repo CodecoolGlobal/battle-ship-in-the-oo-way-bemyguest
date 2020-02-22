@@ -8,6 +8,7 @@ namespace Battleships
             Display.WelcomeScreen();
             var Player1 = new Player(Display.GetPlayersName());
             Display.PlaceAllShips(Player1);
+            Console.Clear();
             var Player2 = new Player(Display.GetPlayersName());
             Display.PlaceAllShips(Player2);
             
