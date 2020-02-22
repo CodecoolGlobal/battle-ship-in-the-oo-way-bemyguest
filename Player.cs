@@ -49,17 +49,17 @@ namespace Battleships
                 var ship = new Ship(coords, direction, size, tag);
                 if (ship.IsHorizontal && (ship.Size + coords.Row) > 10)
                 {
-                    Console.WriteLine("Cannot place your ship there, try again!");
+                    Console.WriteLine("Cannot place your ship there, try again!\n");
                     continue;
                 }
                 else if ((!ship.IsHorizontal) && (ship.Size + coords.Column) > 10)
                 {
-                    Console.WriteLine("Cannot place your ship there, try again!");
+                    Console.WriteLine("Cannot place your ship there, try again!\n");
                     continue;
                 }
                 else if (IsCoordinateTaken(ship))
                 {
-                    Console.WriteLine("Cannot place your ship there, try again!");
+                    Console.WriteLine("Cannot place your ship there, try again!\n");
                     continue;   
                 }
                 else
@@ -77,35 +77,44 @@ namespace Battleships
         {
             var firstPlayerFiringSquare = Player1.FiringBoard.Board[coordinate.Row][coordinate.Column];
             var secondPlayerOwnSquare = Player2.OwnBoard.Board[coordinate.Row][coordinate.Column];
-            // Czy wrzucać tu jakiś warunek, że if is hit, to jeszcze raz? Da się to rozbić na mniejsze?
-            foreach (Ship ship in Player2.Ships) 
+            if (!firstPlayerFiringSquare.IsHit)
             {
-                foreach(var shipCoord in ship.ShipCoordinates)
-                {   
-                    if (coordinate.Column == shipCoord.Column 
-                     && coordinate.Row == shipCoord.Row) 
+                foreach (Ship ship in Player2.Ships) 
+                {
+                    foreach(var shipCoord in ship.ShipCoordinates)
                     {
-                        firstPlayerFiringSquare.Symbol = "X";
-                        firstPlayerFiringSquare.IsHit = true;
-                        secondPlayerOwnSquare.Symbol = "X";
-                        ship.Size --;
-                        
-                        if (ship.IsSunk)
+                        if (coordinate.Column == shipCoord.Column 
+                        && coordinate.Row == shipCoord.Row) 
                         {
-                            Console.WriteLine("\nHit & Sunk!\n", Color.Gold);
+                            firstPlayerFiringSquare.Symbol = "X";
+                            firstPlayerFiringSquare.IsHit = true;
+                            secondPlayerOwnSquare.Symbol = "X";
+                            secondPlayerOwnSquare.IsHit = true;
+                            ship.Size --;
+                            
+                            if (ship.IsSunk)
+                            {
+                                Console.WriteLine("\nHit & Sunk!\n", Color.Gold);
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nHit!\n", Color.Red);
+                            }
+                            return;
                         }
-                        else
-                        {
-                            Console.WriteLine("\nHit!\n", Color.Red);
-                        }
-                        return;
                     }
                 }
+                firstPlayerFiringSquare.Symbol = "O";
+                firstPlayerFiringSquare.IsHit = true;
+                secondPlayerOwnSquare.Symbol = "O";
+                secondPlayerOwnSquare.IsHit = true;
+                Console.WriteLine("\nMiss!\n", Color.Aqua);
             }
-            firstPlayerFiringSquare.Symbol = "O";
-            firstPlayerFiringSquare.IsHit = true;
-            secondPlayerOwnSquare.Symbol = "O";
-            Console.WriteLine("\nMiss!\n", Color.Aqua);
+            else
+            {
+                Console.WriteLine("\n You've already shot here! Try again.", Color.Gold);
+                Shoot(Display.GetShootingCoordinates(), Player1, Player2);
+            }
         }
         public void PlayTurn(Player Player1, Player Player2)
         {
