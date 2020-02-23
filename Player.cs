@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
-using Console = Colorful.Console;
+using System;
 
 namespace Battleships
 {
@@ -12,6 +10,7 @@ namespace Battleships
         public Ocean OwnBoard { get; set; }
         public Ocean FiringBoard { get; set; }
         public List<Ship> Ships { get; set; }
+        public AbstractController Controller { get; set; }
         public bool HasLost
         {
             get
@@ -21,11 +20,11 @@ namespace Battleships
         }
         public Player(string name)
         {
-            Random rand = new Random();
             Name = name;
             Ships = new List<Ship>();
             OwnBoard = new Ocean();
             FiringBoard = new Ocean();
+            
         }
         public bool IsCoordinateTaken(Ship ship)
         {
@@ -44,8 +43,8 @@ namespace Battleships
             while(loop)
             {
                 Console.WriteLine($"You're now placing ship {tag}, which is {size} long");
-                var direction = Display.GetDirection();
-                var coords = Display.GetShipCoordinates();
+                var direction = Controller.GetDirection();
+                var coords = Controller.GetShipCoordinates();
                 var ship = new Ship(coords, direction, size, tag);
                 if (ship.IsHorizontal && (ship.Size + coords.Row) > 10)
                 {
@@ -73,55 +72,12 @@ namespace Battleships
                 }
             }
         }
-        public void Shoot(Coordinates coordinate, Player Player1, Player Player2) 
+        public void PlaceAllShips()
         {
-            var firstPlayerFiringSquare = Player1.FiringBoard.Board[coordinate.Row][coordinate.Column];
-            var secondPlayerOwnSquare = Player2.OwnBoard.Board[coordinate.Row][coordinate.Column];
-            if (!firstPlayerFiringSquare.IsHit)
+            foreach(KeyValuePair<string, int> property in Ship.ShipProperties)
             {
-                foreach (Ship ship in Player2.Ships) 
-                {
-                    foreach(var shipCoord in ship.ShipCoordinates)
-                    {
-                        if (coordinate.Column == shipCoord.Column 
-                        && coordinate.Row == shipCoord.Row) 
-                        {
-                            firstPlayerFiringSquare.Symbol = "X";
-                            firstPlayerFiringSquare.IsHit = true;
-                            secondPlayerOwnSquare.Symbol = "X";
-                            secondPlayerOwnSquare.IsHit = true;
-                            ship.Size --;
-                            
-                            if (ship.IsSunk)
-                            {
-                                Console.WriteLine("\nHit & Sunk!\n", Color.Gold);
-                            }
-                            else
-                            {
-                                Console.WriteLine("\nHit!\n", Color.Red);
-                            }
-                            return;
-                        }
-                    }
-                }
-                firstPlayerFiringSquare.Symbol = "O";
-                firstPlayerFiringSquare.IsHit = true;
-                secondPlayerOwnSquare.Symbol = "O";
-                secondPlayerOwnSquare.IsHit = true;
-                Console.WriteLine("\nMiss!\n", Color.Aqua);
+                PlaceShip(property.Value, property.Key);
             }
-            else
-            {
-                Console.WriteLine("\n You've already shot here! Try again.", Color.Gold);
-                Shoot(Display.GetShootingCoordinates(), Player1, Player2);
-            }
-        }
-        public void PlayTurn(Player Player1, Player Player2)
-        {
-            Display.PrintBoards(Player1);
-            Player1.Shoot(Display.GetShootingCoordinates(), Player1, Player2);
-            Console.ReadLine();
-            Console.Clear();
         }
     }
 }
