@@ -1,12 +1,44 @@
-using Console = Colorful.Console;
-using System.Drawing;
 using System;
-
 namespace Battleships
 {
-    public class PlayerController : AbstractController
+    public class HumanPlayer : Player
     {
-        public PlayerController(Player player1, Player player2) : base(player1, player2){}
+        public HumanPlayer(string name) : base(name){}
+        public override void PlaceShip(int size, string tag)
+        {
+            var loop = true;
+            while(loop)
+            {
+                Console.WriteLine($"You're now placing ship {tag}, which is {size} long");
+                var direction = GetDirection();
+                var coords = GetShipCoordinates();
+                var ship = new Ship(coords, direction, size, tag);
+                if (ship.IsHorizontal && (ship.Size + coords.Row) > 10)
+                {
+                    Console.WriteLine("Cannot place your ship there, try again!\n");
+                    continue;
+                }
+                else if ((!ship.IsHorizontal) && (ship.Size + coords.Column) > 10)
+                {
+                    Console.WriteLine("Cannot place your ship there, try again!\n");
+                    continue;
+                }
+                else if (IsCoordinateTaken(ship))
+                {
+                    Console.WriteLine("Cannot place your ship there, try again!\n");
+                    continue;   
+                }
+                else
+                {
+                    Ships.Add(ship);
+                    foreach(var coordinate in ship.ShipCoordinates)
+                    {
+                        OwnBoard.Board[coordinate.Row][coordinate.Column].Symbol = tag;
+                    }
+                    loop = false;
+                }
+            }
+        }
         public override Coordinates GetShootingCoordinates()
         {
             try

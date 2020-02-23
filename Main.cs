@@ -5,27 +5,32 @@ namespace Battleships
     {
         static void Main(string[] args)
         {
-            var Player1 = new Player(Display.GetPlayersName());
-            var Player2 = new Player(Display.GetPlayersName());
-            AbstractController PlayerController = new PlayerController(Player1, Player2);
-            AbstractController AIController = new AIController(Player1, Player2);
-
             Display.WelcomeScreen();
-            Player1.PlaceAllShips();
+            var choice = Convert.ToInt32(Console.ReadLine());
+            var Player1 = new HumanPlayer(Display.GetPlayersName());
+            Player Player2 = new AIPlayer("Kompik");
+
+            if (choice == 1)
+            {
+                Player2 = new HumanPlayer(Display.GetPlayersName());
+            }
+
+            Controller controller = new Controller(Player1, Player2);
+
+            Player1.PlaceAllShips(Player1);
             Console.Clear();
-            Player2.PlaceAllShips();
+            Player2.PlaceAllShips(Player2);
             
             var gameIsOn = true;
-
             while(gameIsOn)
             {
-                PlayerController.PlayTurn(Player1);
+                controller.PlayTurn(Player1, Player2);
                 if(Player2.HasLost)
                 {
                     Console.WriteLine("Player1 Won!");
                     break;
                 }
-                AIController.PlayTurn(Player2);
+                controller.PlayTurn(Player2, Player1);
                 if(Player1.HasLost)
                 {
                     Console.WriteLine("Player2 Won!");

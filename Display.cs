@@ -30,7 +30,7 @@ namespace Battleships
         }
         public static void WelcomeScreen()
         {
-            Console.WriteLine("Welcome screen!");
+            Console.WriteLine("Welcome screen! Insert 1 to play vs another player or 2 to play vs computer");
         }
         public static string GetPlayersName()
         {

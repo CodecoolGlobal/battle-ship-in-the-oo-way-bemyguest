@@ -3,16 +3,16 @@ using System.Drawing;
 
 namespace Battleships
 {
-    public abstract class AbstractController
+    public class Controller
     {
         public Player Player1 { get; set; }
         public Player Player2 { get; set; }
-        public AbstractController(Player player1, Player player2)
+        public Controller(Player player1, Player player2)
         {
             Player1 = player1;
             Player2 = player2;
         }
-        public void Shoot(Coordinates coordinate) 
+        public void Shoot(Coordinates coordinate, Player Player1, Player Player2) 
         {
             var firstPlayerFiringSquare = Player1.FiringBoard.Board[coordinate.Row][coordinate.Column];
             var secondPlayerOwnSquare = Player2.OwnBoard.Board[coordinate.Row][coordinate.Column];
@@ -52,18 +52,18 @@ namespace Battleships
             else
             {
                 Console.WriteLine("\n You've already shot here! Try again.", Color.Gold);
-                Shoot(GetShootingCoordinates());
+                Shoot(Player1.GetShootingCoordinates(), Player1, Player2);
             }
         }
-        public void PlayTurn(Player Player)
+        public void PlayTurn(Player Player1 , Player Player2)
         {
-            Display.PrintBoards(Player);
-            Shoot(GetShootingCoordinates());
+            if (Player2.GetType() == typeof(HumanPlayer))
+            {
+                Display.PrintBoards(Player2);
+            }
+            Shoot(Player1.GetShootingCoordinates(), Player1 , Player2);
             Console.ReadLine();
             Console.Clear();
         }
-        public abstract Coordinates GetShootingCoordinates();
-        public abstract Coordinates GetShipCoordinates();
-        public abstract bool GetDirection();
     }
 }
